@@ -7,7 +7,7 @@ Text-to-SQL is still limited to a theoretical environment while practical factor
 Link to paper following soon...
 
 ## Ressources
-To set up the environment, start by downloading the datasets of [Spider](https://yale-lily.github.io/spider), [KaggleDBQA](https://github.com/Chia-Hsuan-Lee/KaggleDBQA) and [BIRD-SQL](https://bird-bench.github.io/) to the folders `./data/datasets/spider`, `./data/datasets/kaggledbqa` and `./data/datasets/bird/dev` respectively.
+To set up the environment, start by downloading the datasets of [Spider](https://yale-lily.github.io/spider), [KaggleDBQA](https://github.com/Chia-Hsuan-Lee/KaggleDBQA) and [BIRD-SQL](https://bird-bench.github.io/) to the folders `./data/datasets/spider`, `./data/datasets/kaggledbqa` and `./data/datasets/bird` respectively.
 Then add the git submodules of [M-Schema](https://github.com/XGenerationLab/M-Schema) and [Test-Suite-Evaluation](https://github.com/taoyds/test-suite-sql-eval) to  `./external`:
 ```submodules
 git submodule add https://github.com/XGenerationLab/M-Schema.git external/mschema
@@ -27,4 +27,23 @@ pip install -r requirements.txt
 ## Experiment
 Follow the steps down below to recreate the experiment.
 ### Schema Anonymization
+To create anonymized versions of the original datasets run `anonymize.py` for each dataset in `['spider', 'kaggledbqa', 'bird']`.
+```
+python preprocess.py --dataset spider
+```
+### Schema Representation
+The schema representation determines how the database schemas are presented to the LLM. As described in the original paper, DDL and [M-Schema](https://github.com/XGenerationLab/M-Schema) were implemented, while also providing methods for adding auxiliary information in DDL. You can run the experiments in a zero-shot scenario or by including `k` samples of similar SQL-queries in the prompt. For detailed information please refer to the implementation of [DAIL-SQL](https://github.com/BeachWang/DAIL-SQL/). 
 
+```
+python representation.py --dataset spider --method mschema
+```
+### Prompts
+In order to generate the final prompts run `prompting.py` and select the specific dataset and representation method. Make sure that you have already executed the previous procedures for the selected combination.
+```
+python prompting.py --dataset spider --method mschema
+```
+### Generate Predictions
+The experiment described in the paper was conducted by using `gpt-4o-2024-08-06`. However, feel free to experiment with other LLMs as well. Set the provider accordingly.
+```
+python generate.py --dataset spider --method mschema --provider openai --model gpt-4o-2024-08-06
+```
