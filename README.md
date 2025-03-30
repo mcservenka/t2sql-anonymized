@@ -47,3 +47,10 @@ The experiment described in the paper was conducted by using `gpt-4o-2024-08-06`
 ```
 python generate.py --dataset spider --method mschema --provider openai --model gpt-4o-2024-08-06
 ```
+### Evaluate Results
+To evaluate the results run the following:
+```
+python evaluate.py --dataset spider --method mschema --model gpt-4o-2024-08-06
+```
+
+## Results
