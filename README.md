@@ -2,8 +2,6 @@
 
 Text-to-SQL is still limited to a theoretical environment while practical factors have generally not been taken into account. The paper **Anonymized Text-to-SQL: Exploring inexplicit Database Schemas** addresses the issue of inexplicit database object names in real-world work environments and introduces three code representation-based approaches to pass additional information, such as translations or synonyms in data definition language, to a Large Language Model and compares them to the established M-Schema technique. This repository contains the source code for aforementioned paper. In order to reproduce the results, follow the instructions below.
 
-[comment]: <> (>Cservenka, Markus. "Anonymized Text-to-SQL: Exploring inexplicit Database Schemas", 2025.)
-
 Link to paper following soon...
 
 ## Ressources
